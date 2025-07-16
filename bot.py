@@ -1,9 +1,15 @@
 import asyncio
 import logging
+import os  # <<< Добавлен импорт
 
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.client.bot import DefaultBotProperties
+
+# --- Начало блока для веб-сервера ---
+from aiohttp import web  # <<< Добавлен импорт
+# --- Конец блока для веб-сервера ---
+
 from tgbot.config import load_config
 from tgbot.handlers.admin import admin_router
 from tgbot.handlers.user import user_router
@@ -13,7 +19,34 @@ from tgbot.services import broadcaster
 from db.db import init_db_pool, db_pool
 from logs.logs import initlogging
 
-# logger = logging.getLogger(__name__)
+
+# --- Начало блока для веб-сервера ---
+
+async def web_server_handler(request):
+    
+    return web.Response(text="Bot is running")
+
+async def on_bot_startup(dispatcher: Dispatcher):
+    
+    app = web.Application()
+    app.router.add_get("/", web_server_handler)
+    
+    port = 4000
+
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, host='0.0.0.0', port=port)
+    await site.start()
+    
+    dispatcher.workflow_data["webapp_runner"] = runner 
+    print(f"Веб-сервер запущен на порту {port}...")
+
+async def on_bot_shutdown(dispatcher: Dispatcher):
+    runner = dispatcher.workflow_data.get("webapp_runner")
+    if runner:
+        await runner.cleanup()
+        print("Веб-сервер остановлен.")
+
 
 
 async def on_startup(bot: Bot, admin_ids: list[int]):
@@ -38,6 +71,9 @@ async def main():
     bot = Bot(token=config.tg_bot.token,
         default=DefaultBotProperties(parse_mode='HTML'))
     dp = Dispatcher(storage=storage)
+    
+    dp.startup.register(on_bot_startup)
+    dp.shutdown.register(on_bot_shutdown)
 
     for router in [
         admin_router,
