@@ -38,16 +38,16 @@ def load_config(path: str = None):
 
     return Config(
         tg_bot=TgBot(
-            token="5257942822:AAFqBBqGZs6UJZsF3fJ6fY-f8pCFQelxXRw",
-            chat = "-1002403424723",
+            token="6709760095:AAEFW1mipXRWWU8k7hiXCWGsZufyTYG_4Oc",
+            chat = "-1002328598165",
             admin_ids=[],
             use_redis=False,
         ),
         db=DbConfig(
-            host='localhost',
-            password='2545',
-            user='postgres',
-            database='consultant-bot',
+            host='',
+            password='',
+            user='',
+            database='',
             db_uri=''
         ),
         misc=Miscellaneous()
