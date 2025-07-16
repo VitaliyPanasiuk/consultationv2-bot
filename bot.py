@@ -31,7 +31,7 @@ async def on_bot_startup(dispatcher: Dispatcher):
     app = web.Application()
     app.router.add_get("/", web_server_handler)
     
-    port = 4000
+    port = int(os.environ.get('PORT', 8080))
 
     runner = web.AppRunner(app)
     await runner.setup()
