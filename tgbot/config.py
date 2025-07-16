@@ -15,6 +15,7 @@ class DbConfig:
 @dataclass
 class TgBot:
     token: str
+    chat: str
     admin_ids: list[int]
     use_redis: bool
 
@@ -37,16 +38,17 @@ def load_config(path: str = None):
 
     return Config(
         tg_bot=TgBot(
-            token="BOT_TOKEN",
+            token="5257942822:AAFqBBqGZs6UJZsF3fJ6fY-f8pCFQelxXRw",
+            chat = "-1002403424723",
             admin_ids=[],
             use_redis=False,
         ),
         db=DbConfig(
-            host='DB_HOST',
-            password='DB_PASS',
-            user='DB_USER',
-            database='DB_NAME',
-            db_uri='DB_URI'
+            host='localhost',
+            password='2545',
+            user='postgres',
+            database='consultant-bot',
+            db_uri=''
         ),
         misc=Miscellaneous()
     )

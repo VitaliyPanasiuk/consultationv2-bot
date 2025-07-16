@@ -15,3 +15,9 @@ async def init_db_pool():
         min_size=10,
         max_size=30
     )
+    
+async def get_pool_func():
+    global db_pool
+    if db_pool is None:
+        await init_db_pool()
+    return db_pool

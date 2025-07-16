@@ -13,7 +13,7 @@ import asyncio
 
 from tgbot.services.del_message import delete_message
 
-from tgbot.keyboards.inlineBtn import CastomCallback
+# from tgbot.keyboards.inlineBtn import CastomCallback
 # CastomCallback.filter(F.action == "") // callback_query: types.CallbackQuery, callback_data: SellersCallbackFactory, state: FSMContext
 
 from tgbot.config import load_config

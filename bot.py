@@ -7,6 +7,7 @@ from aiogram.client.bot import DefaultBotProperties
 from tgbot.config import load_config
 from tgbot.handlers.admin import admin_router
 from tgbot.handlers.user import user_router
+from tgbot.handlers.price import price_router
 from tgbot.middlewares.config import ConfigMiddleware
 from tgbot.services import broadcaster
 from db.db import init_db_pool, db_pool
@@ -41,6 +42,7 @@ async def main():
     for router in [
         admin_router,
         user_router,
+        price_router,
     ]:
         dp.include_router(router)
 

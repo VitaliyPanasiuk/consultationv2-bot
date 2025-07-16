@@ -2,6 +2,17 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 
 
-class exmple_state(StatesGroup):
+class consult_state(StatesGroup):
+    phone = State()
     name = State()
-    age = State()
+    comp_name = State()
+    links = State()
+    target = State()
+    
+class price_state(StatesGroup):
+    phone = State()
+    name = State()
+    comp_name = State()
+    links = State()
+    target = State()
+    service = State()
